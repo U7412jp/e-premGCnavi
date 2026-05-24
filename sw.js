@@ -1,10 +1,11 @@
 const CACHE_NAME = "usuki-digital-ticket-navi-v1";
 
+// GitHub Pagesのサブディレクトリ（リポジトリ名）を明示する
 const ASSETS_TO_CACHE = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./icon.png"
+  "/e-premGCnavi/",
+  "/e-premGCnavi/index.html",
+  "/e-premGCnavi/manifest.json",
+  "/e-premGCnavi/icon.png"
 ];
 
 self.addEventListener("install", event => {
@@ -35,9 +36,10 @@ self.addEventListener("fetch", event => {
   event.respondWith(
     caches.match(event.request)
       .then(cachedResponse => {
+        // ナビゲート（ページ遷移）時のフォールバックもリポジトリ名付きに変更
         return cachedResponse || fetch(event.request).catch(() => {
           if (event.request.mode === "navigate") {
-            return caches.match("./index.html");
+            return caches.match("/e-premGCnavi/index.html");
           }
         });
       })
