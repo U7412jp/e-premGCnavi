@@ -1,0 +1,19 @@
+{
+  "name": "臼杵市デジタル商品券 申込準備ナビ",
+  "short_name": "商品券ナビ",
+  "description": "臼杵市プレミアム付デジタル商品券の申込準備を確認するための案内ツールです。",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f0f8ff",
+  "theme_color": "#2f80ed",
+  "icons": [
+    {
+      "src": "./icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>臼杵市デジタル商品券 申込準備ナビ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* PWA iOS Safe Area handling */
+        .safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col pb-20">
+
+    <div class="bg-red-50 border-b border-red-200 py-3 px-4 text-xs md:text-sm text-red-800 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-md mx-auto flex items-start gap-2.5">
+            <svg class="w-5 h-5 text-red-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+            <div>
+                <strong class="font-bold block mb-0.5">⚠️ ご注意：これは公式の申込画面ではありません</strong>
+                <p class="leading-relaxed">本ページは確認用の案内補助ツールです。実際の申込はxIDアプリから行います。<strong>個人情報やマイナンバーカードの暗証番号は、絶対にここに入力しないでください。</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <header class="bg-gradient-to-r from-sky-600 to-blue-700 text-white py-5 px-4 shadow-md text-center">
+        <div class="max-w-md mx-auto">
+            <div class="flex items-center justify-center gap-2 mb-1">
+                <svg class="w-7 h-7 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+                <span class="bg-yellow-300 text-blue-900 text-xs font-bold px-2 py-0.5 rounded-full">第9弾 臼杵市プレミアム商品券</span>
+            </div>
+            <h1 class="text-xl md:text-2xl font-bold tracking-tight">デジタル商品券 申込準備ナビ</h1>
+            <p class="text-xs text-sky-100 mt-1">安心・簡単！スマートな事前シミュレーション</p>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-md w-full mx-auto px-4 py-6">
+
+        <section id="screen-home" class="space-y-6">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 text-center">
+                <h2 class="text-lg font-bold text-slate-800 mb-2">このアプリでできること</h2>
+                <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                    プレミアム率40%のデジタル商品券（10,000円で14,000円分利用できるスマートフォン型の商品券）の申込に必要な手順や、ご自身のスマートフォン環境で申込が可能かどうかを、いくつかの簡単な質問で確認できます。
+                </p>
+                <div class="grid grid-cols-1 gap-3">
+                    <button onclick="startDiagnosis()" class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-base md:text-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        かんたん確認をはじめる
+                    </button>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="switchTab('guide')" class="bg-sky-50 hover:bg-sky-100 text-sky-800 font-semibold py-3 px-4 rounded-xl border border-sky-200 text-sm transition-all">
+                            制度の概要を見る
+                        </button>
+                        <button onclick="switchTab('inquiry')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-semibold py-3 px-4 rounded-xl border border-emerald-200 text-sm transition-all">
+                            相談先を見る
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="flex h-3 w-3 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                        </span>
+                        <h3 class="font-bold text-slate-800">今やること（現在の状況）</h3>
+                    </div>
+                </div>
+
+                <div id="status-card" class="rounded-xl p-4 transition-all duration-300">
+                    <div class="flex items-start gap-3">
+                        <div id="status-icon" class="p-2 rounded-lg text-white">
+                            </div>
+                        <div>
+                            <span id="status-badge" class="text-xs font-bold px-2.5 py-1 rounded-full inline-block mb-1.5"></span>
+                            <h4 id="status-title" class="font-bold text-slate-800 text-sm md:text-base"></h4>
+                            <p id="status-desc" class="text-xs md:text-sm text-slate-600 mt-1 leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    重要スケジュール (2026年)
+                </h3>
+                <div class="relative pl-6 border-l-2 border-slate-200 space-y-5 text-sm">
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-1 bg-sky-500 rounded-full w-4 h-4 border-4 border-white"></div>
+                        <p class="text-xs text-slate-500 font-medium">事前相談・サポートデスク開設</p>
+                        <p class="font-bold text-slate-800">5月26日(火) 〜 6月5日(金)（土日祝日を除く）</p>
+                        <p class="text-xs text-slate-600">市役所市民課・野津庁舎にて操作などの相談受付開始</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-1 bg-blue-600 rounded-full w-4 h-4 border-4 border-white"></div>
+                        <p class="text-xs text-blue-600 font-bold">【最重要】購入申込受付期間</p>
+                        <p class="font-bold text-blue-900 text-base">6月1日(月) 〜 6月12日(金)</p>
+                        <p class="text-xs text-slate-600">※xIDアプリから申込。先着順ではありません。申込多数の場合は抽選です。</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-1 bg-amber-500 rounded-full w-4 h-4 border-4 border-white"></div>
+                        <p class="text-xs text-slate-500 font-medium">結果通知・当選案内</p>
+                        <p class="font-bold text-slate-800">6月末ごろ予定</p>
+                        <p class="text-xs text-slate-600">xIDアプリ等で抽選結果の通知を確認します。</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-1 bg-emerald-600 rounded-full w-4 h-4 border-4 border-white"></div>
+                        <p class="text-xs text-emerald-600 font-bold">当選者購入（チャージ）期間</p>
+                        <p class="font-bold text-slate-800">7月1日(水) 〜 7月12日(日)</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            ※「コンビニ払い」は、当選した商品券を購入・チャージするための支払方法です。商品券を利用できるかどうかは、その店舗が臼杵市内の取扱加盟店であるかによります。
+                        </p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-1 bg-sky-600 rounded-full w-4 h-4 border-4 border-white"></div>
+                        <p class="text-xs text-slate-500 font-medium">商品券利用可能期間</p>
+                        <p class="font-bold text-slate-800">7月1日(水) 〜 9月30日(水)</p>
+                        <p class="text-xs text-red-600 font-bold">※臼杵市内の取扱加盟店で利用できます。市外店舗や加盟店でない店舗では利用できません。利用期限を過ぎると残高は失効します。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-200">
+                <h3 class="font-bold text-amber-900 mb-3 text-center text-base">プレミアム商品券の内容</h3>
+                <div class="grid grid-cols-2 gap-3 text-center">
+                    <div class="bg-white p-3 rounded-xl border border-amber-100 shadow-sm">
+                        <p class="text-xs text-slate-500">プレミアム率</p>
+                        <p class="text-2xl font-black text-orange-600">40%</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-amber-100 shadow-sm">
+                        <p class="text-xs text-slate-500">購入上限</p>
+                        <p class="text-sm font-bold text-amber-900">1人あたり 3口</p>
+                        <p class="text-[10px] text-slate-500">（3万円購入で4.2万円分）</p>
+                    </div>
+                </div>
+                <div class="mt-4 text-xs text-amber-900 space-y-1.5 leading-relaxed pl-2 border-l-2 border-amber-400">
+                    <p>● 対象：<strong>臼杵市民のみ</strong></p>
+                    <p>● 利用可能場所：<strong>臼杵市内の取扱加盟店</strong>（市外店舗や加盟店でない店舗では利用できません）。</p>
+                    <p>● 1口 10,000円で 14,000円分のご利用が可能です。</p>
+                    <p>● 15歳未満の方は署名用電子証明書が発行されないため、デジタル商品券は申込不可となります。</p>
+                    <p>● スマートフォン1端末につき、申込できるのは1人分です。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-diagnosis" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+                <div class="flex justify-between items-center text-xs text-slate-500 mb-2">
+                    <span class="font-medium">準備状況かんたん確認</span>
+                    <span id="progress-text" class="font-bold text-blue-600">質問 1/8</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                    <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-300" style="width: 12.5%"></div>
+                </div>
+            </div>
+
+            <div id="question-container">
+                </div>
+
+            <div class="flex items-center justify-between gap-4">
+                <button onclick="prevQuestion()" id="btn-diag-back" class="flex-1 bg-white hover:bg-slate-50 text-slate-700 font-bold py-3 px-4 rounded-xl border border-slate-300 transition-all text-sm flex items-center justify-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    戻る
+                </button>
+                <button onclick="resetDiagnosis()" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-4 rounded-xl transition-all text-sm flex items-center justify-center gap-1">
+                    最初から
+                </button>
+            </div>
+        </section>
+
+        <section id="screen-result" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <div class="text-center mb-5">
+                    <span class="text-xs font-semibold bg-sky-100 text-sky-800 px-3 py-1 rounded-full uppercase tracking-wider">確認結果の目安</span>
+                    <div id="result-icon-container" class="my-4 flex justify-center">
+                        </div>
+                    <h3 id="result-title" class="text-xl font-bold text-slate-800"></h3>
+                </div>
+
+                <div id="result-box" class="rounded-xl p-4 text-sm leading-relaxed text-slate-700 space-y-3 mb-6">
+                    </div>
+
+                <div class="border-t border-slate-100 pt-5">
+                    <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-1.5 text-sm md:text-base">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                        </svg>
+                        あなたに合わせた事前チェック項目
+                    </h4>
+                    <ul id="result-checklist" class="space-y-2 text-xs md:text-sm text-slate-600">
+                        </ul>
+                </div>
+            </div>
+
+            <div class="bg-sky-50 rounded-2xl p-5 border border-sky-100">
+                <h4 class="font-bold text-sky-900 mb-2 text-sm flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    操作に不安のある方は
+                </h4>
+                <p class="text-xs text-sky-800 leading-relaxed mb-3">
+                    マイナンバーカードの暗証番号がロックされた場合や、xID（クロスアイディ）アプリの初期設定に自信が無い場合は、ご自身だけで悩まずにサポートデスクやコールセンターをご利用ください。
+                </p>
+                <button onclick="switchTab('inquiry')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs md:text-sm transition-all shadow">
+                    相談窓口と開催日程を確認する
+                </button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="resetDiagnosis()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-4 rounded-xl transition-all text-sm shadow">
+                    もう一度確認する
+                </button>
+                <button onclick="switchTab('guide')" class="bg-white hover:bg-slate-50 text-slate-700 font-bold py-3.5 px-4 rounded-xl border border-slate-300 transition-all text-sm shadow-sm">
+                    手順ガイドを見る
+                </button>
+            </div>
+        </section>
+
+        <section id="screen-guide" class="hidden space-y-4">
+            <h2 class="text-lg font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+                デジタル商品券 手順ガイド
+            </h2>
+            <p class="text-xs text-slate-500 mb-3">項目をタップすると、詳しい解説が開きます。</p>
+
+            <div class="space-y-3">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-1')" class="w-full flex justify-between items-center p-4 text-left font-bold text-slate-800 hover:bg-slate-50 transition-all text-sm md:text-base">
+                        <span>💡 デジタル商品券とは？</span>
+                        <svg id="acc-1-icon" class="w-5 h-5 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="acc-1" class="hidden p-4 bg-slate-50 border-t border-slate-100 text-xs md:text-sm text-slate-600 space-y-2 leading-relaxed">
+                        <p>プレミアム率40%のデジタル商品券です。10,000円で14,000円分利用できるスマートフォン型の商品券です。</p>
+                        <p>購入上限は1人最大3口（30,000円購入で42,000円分利用可）まで申込できます。</p>
+                        <p><strong>利用可能場所：</strong> 臼杵市内の取扱加盟店で利用できます。市外店舗や加盟店でない店舗では利用できません。</p>
+                        <p>加盟店舗に設置されているQRコードをご自身のスマートフォンで読み取るだけで、1円単位からキャッシュレス決済が可能です。利用にはインターネット環境が必要です。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-2')" class="w-full flex justify-between items-center p-4 text-left font-bold text-slate-800 hover:bg-slate-50 transition-all text-sm md:text-base">
+                        <span>🎒 事前に準備するもの</span>
+                        <svg id="acc-2-icon" class="w-5 h-5 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="acc-2" class="hidden p-4 bg-slate-50 border-t border-slate-100 text-xs md:text-sm text-slate-600 space-y-3 leading-relaxed">
+                        <p>申込をスムーズに進めるために、あらかじめ以下の5点をお手元にご用意、またはご確認ください。</p>
+                        <ol class="list-decimal pl-5 space-y-2">
+                            <li><strong>スマートフォン:</strong> インターネット接続が可能な端末。※1端末につき、申込できるのは1人分です。</li>
+                            <li><strong>マイナンバーカード:</strong> 本人確認と電子署名に必要です。有効期限内であることを確認してください。<br><span class="text-red-600 font-bold text-xs mt-1 inline-block">※【重要】電子証明書は有効化に24時間必要です。申込最終日に駆け込みで取得（電子証明書もその日に生成）しても間に合いませんので、その場合は紙の商品券をご検討ください。</span></li>
+                            <li><strong>署名用電子証明書暗証番号（英数字6〜16文字）:</strong> マイナンバーカード交付時に設定した「英大文字と数字」の暗証番号です。※5回連続で間違えるとロックされます。</li>
+                            <li><strong>メールアドレス:</strong> xIDアプリ等の登録や確認手続きに必要です。通知の確認方法はxIDアプリ等の案内に従ってください。</li>
+                            <li><strong>xID（クロスアイディ）アプリ:</strong> マイナンバーカードと連携し、申込を行うための専用アプリ（無料）です。</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-3')" class="w-full flex justify-between items-center p-4 text-left font-bold text-slate-800 hover:bg-slate-50 transition-all text-sm md:text-base">
+                        <span>📲 xID（クロスアイディ）アプリの準備</span>
+                        <svg id="acc-3-icon" class="w-5 h-5 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="acc-3" class="hidden p-4 bg-slate-50 border-t border-slate-100 text-xs md:text-sm text-slate-600 space-y-3 leading-relaxed">
+                        <p>本人確認および申込には、デジタルIDアプリ「<strong>xID</strong>」の登録が必要になります。</p>
+                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-100 space-y-1.5 text-blue-900">
+                            <p class="font-bold">【xID登録の流れ】</p>
+                            <p>① App Store または Google Play で「xID」と検索してインストールします。</p>
+                            <p>② アプリを起動し、メールアドレスを入力して認証を行います。※キャリアメールは確認メールが届かない場合があるため、フリーメール（GmailやYahoo!メールなど）の使用を推奨します。</p>
+                            <p>③ xIDアプリ用PINを登録し、スマートフォンでマイナンバーカードを読み取って本人確認を完了させます。xIDアプリ用PINと、マイナンバーカードの署名用電子証明書暗証番号（英数字6〜16文字）は別のものです。</p>
+                        </div>
+                        <p class="text-red-600 font-bold">※注意：本ページは案内補助ツールであり、マイナンバーの読み取りや暗証番号の入力は一切ありません。必ず公式のxIDアプリ内で行ってください。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-4')" class="w-full flex justify-between items-center p-4 text-left font-bold text-slate-800 hover:bg-slate-50 transition-all text-sm md:text-base">
+                        <span>📅 申込から購入（チャージ）までの流れ</span>
+                        <svg id="acc-4-icon" class="w-5 h-5 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="acc-4" class="hidden p-4 bg-slate-50 border-t border-slate-100 text-xs md:text-sm text-slate-600 space-y-2.5 leading-relaxed">
+                        <p><strong>ステップ1：申込（6/1〜6/12）</strong><br>xIDアプリからプレミアム商品券の申込ページにアクセスし、必要口数を入力して申し込みます。</p>
+                        <p><strong>ステップ2：抽選結果確認（6月末予定）</strong><br>xIDアプリ等で抽選結果の通知を確認します。通知時期は6月末ごろの予定です。</p>
+                        <p><strong>ステップ3：購入・チャージ（7/1(水)〜7/12(日)）</strong><br>当選された方は、案内手順に従って購入手続き（クレジットカード決済またはコンビニ払い）を行います。
+                            <br><span class="text-red-600 font-bold">※「コンビニ払い」は、当選した商品券を購入・チャージするための支払方法です。商品券を利用できるかどうかは、その店舗が臼杵市内の取扱加盟店であるかによります。</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-5')" class="w-full flex justify-between items-center p-4 text-left font-bold text-slate-800 hover:bg-slate-50 transition-all text-sm md:text-base">
+                        <span>🛒 共通券と限定券の違い</span>
+                        <svg id="acc-5-icon" class="w-5 h-5 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="acc-5" class="hidden p-4 bg-slate-50 border-t border-slate-100 text-xs md:text-sm text-slate-600 space-y-3 leading-relaxed">
+                        <p>デジタル商品券（1口あたり14,000円分）は、以下の2つの券種で構成されています。それぞれ利用可能店舗が異なります。</p>
+                        <div class="grid grid-cols-2 gap-3 text-center">
+                            <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-100">
+                                <span class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">共通券</span>
+                                <p class="text-lg font-bold text-blue-900 mt-1">10,000円分</p>
+                                <p class="text-[10px] text-slate-500 mt-0.5">大型店・一般商店の両方で利用可能</p>
+                            </div>
+                            <div class="bg-amber-50 p-2.5 rounded-lg border border-amber-100">
+                                <span class="bg-amber-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">限定券</span>
+                                <p class="text-lg font-bold text-amber-900 mt-1">4,000円分</p>
+                                <p class="text-[10px] text-slate-500 mt-0.5">一般商店のみで利用可能</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-700"><strong>💡 お支払い時の確認：</strong><br>共通券と限定券を組み合わせて支払う場合は、金額の合計が支払額と合っているか、お店の方と一緒に確認してください（臼杵市内の取扱加盟店で利用できます。市外店舗や加盟店でない店舗では利用できません）。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-7')" class="w-full flex justify-between items-center p-4 text-left font-bold text-slate-800 hover:bg-slate-50 transition-all text-sm md:text-base">
+                        <span>🚫 利用対象外となるもの・利用不可地域</span>
+                        <svg id="acc-7-icon" class="w-5 h-5 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="acc-7" class="hidden p-4 bg-slate-50 border-t border-slate-100 text-xs md:text-sm text-slate-600 space-y-2.5 leading-relaxed">
+                        <p class="font-bold text-red-600">利用可能場所について：</p>
+                        <p class="pl-2">利用できるのは、<strong>臼杵市内の取扱加盟店</strong>です。市外店舗や加盟店でない店舗では利用できません。</p>
+                        
+                        <p class="font-bold text-red-600 mt-2">以下の商品やサービスのお支払いには利用できません：</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>税金、公共料金、電気・水道料金などの支払い</li>
+                            <li>家賃、地代等の支払い</li>
+                            <li>換金性の高いもの（ビール券、図書カード、切手、はがき、プリペイドカード、商品券等の購入）</li>
+                            <li>たばこの購入</li>
+                            <li>事業用仕入れなど、実質的な自己消費に該当しないもの</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-6')" class="w-full flex justify-between items-center p-4 text-left font-bold text-slate-800 hover:bg-slate-50 transition-all text-sm md:text-base">
+                        <span>❓ よくある質問 (FAQ)</span>
+                        <svg id="acc-6-icon" class="w-5 h-5 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="acc-6" class="hidden p-4 bg-slate-50 border-t border-slate-100 text-xs md:text-sm text-slate-600 space-y-4 leading-relaxed">
+                        <div>
+                            <p class="font-bold text-slate-800">Q. 市外のお店でも使えますか？</p>
+                            <p class="text-slate-600 mt-1">いいえ。利用できるのは、<strong>臼杵市内の取扱加盟店</strong>です。市外店舗や加盟店でない店舗では利用できません。</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800">Q. 当選したあとに購入（チャージ）する口数を変更できますか？</p>
+                            <p class="text-slate-600 mt-1">いいえ。<strong>当選した口数を変更して購入することはできません。</strong>例えば3口当選した場合、2口だけ購入することはできず、当選した口数をまとめて購入する必要があります。</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800">Q. 紙の商品券と両方申し込めますか？</p>
+                            <p class="text-slate-600 mt-1">いいえ、紙商品券とデジタル商品券の<strong>同時申込（重複当選）はできません。</strong>どちらか一方をお選びください。</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800">Q. スマートフォン1台で家族の分など複数人の申込ができますか？</p>
+                            <p class="text-slate-600 mt-1">いいえ、<strong>スマートフォン1端末につき、申込できるのは1人分です。複数人分を同じ端末で申し込むことはできません。</strong></p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800">Q. 購入後の返品や払い戻しはできますか？</p>
+                            <p class="text-slate-600 mt-1">いいえ、購入手続き完了後は、いかなる場合も<strong>払い戻し、現金化、第三者への譲渡、転売は一切できません。</strong></p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800">Q. 期限までに使い切れなかった分はどうなりますか？</p>
+                            <p class="text-slate-600 mt-1">利用期限（2026年9月30日）を過ぎますと、<strong>未使用残高はすべて失効</strong>となります。返金対応もございませんのでご注意ください。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-inquiry" class="hidden space-y-6">
+            <h2 class="text-lg font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+                <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+                お問い合わせ・相談窓口
+            </h2>
+            <p class="text-xs text-slate-500 mb-4">操作方法が分からない方や、制度についての疑問は以下の窓口へご相談ください。</p>
+
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full mb-2 inline-block">お電話でお問い合わせ</span>
+                <h3 class="font-bold text-slate-800 text-base mb-2">臼杵市プレミアム付・デジタル商品券コールセンター</h3>
+                <div class="bg-slate-50 p-3 rounded-xl mb-4 text-sm space-y-1.5 text-slate-700">
+                    <p class="flex items-center gap-2">
+                        <span class="font-bold text-slate-500 w-16">電話番号:</span>
+                        <a href="tel:05052918178" class="text-blue-600 font-bold hover:underline text-base flex items-center gap-1">
+                            050-5291-8178
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                        </a>
+                    </p>
+                    <p><span class="font-bold text-slate-500 w-16 inline-block">開設期間:</span> 2026年6月1日(月) 〜 9月30日(水)</p>
+                    <p><span class="font-bold text-slate-500 w-16 inline-block">対応時間:</span> 9:00 〜 17:00 （土日祝日を除く）</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full mb-2 inline-block">対面で相談（スマホ操作・アプリ設定）</span>
+                <h3 class="font-bold text-slate-800 text-base mb-2">市役所特設サポートデスク</h3>
+                <p class="text-xs text-slate-500 mb-3">スマートフォンでのxID登録方法や申込の流れを直接対面にて案内します。</p>
+                
+                <div class="bg-slate-50 p-3 rounded-xl text-sm space-y-2.5 text-slate-700">
+                    <div>
+                        <span class="font-bold text-slate-600 block">📍 開設場所:</span>
+                        <p class="pl-4 text-xs md:text-sm">① 臼杵市役所・市民課<br>② 野津庁舎・市民生活推進課</p>
+                    </div>
+                    <div>
+                        <span class="font-bold text-slate-600 block">📅 開設日程:</span>
+                        <p class="pl-4 text-xs md:text-sm">
+                            <strong>【第1期】</strong> 2026年5月26日(火) 〜 6月5日(金)<br>
+                            <strong>【第2期】</strong> 2026年7月1日(水) 〜 7月3日(金)
+                        </p>
+                    </div>
+                    <div>
+                        <span class="font-bold text-slate-600 block">⏰ 開設時間:</span>
+                        <p class="pl-4 text-xs md:text-sm">9:00 〜 16:30 （土日祝日を除く）</p>
+                    </div>
+                </div>
+                <div class="mt-4 text-xs text-red-800 bg-red-50 p-3 rounded-lg border border-red-200 space-y-1.5">
+                    <strong class="font-bold block mb-1 text-slate-800">💡 相談時に準備するもの：</strong>
+                    <p>・お使いのスマートフォン</p>
+                    <p>・マイナンバーカード</p>
+                    <p>・ご本人が暗証番号を確認できる状態</p>
+                    <hr class="border-red-200 my-2">
+                    <p class="font-bold">⚠️ 暗証番号に関する重要注意：</p>
+                    <ul class="list-disc pl-4 space-y-1 text-red-900">
+                        <li>暗証番号は他人に見せたり、声に出して伝えたりしないでください。</li>
+                        <li>サポートスタッフが暗証番号をお聞きすることはありません。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 rounded-2xl p-5 border border-amber-200 text-center">
+                <h3 class="font-bold text-amber-900 text-sm md:text-base mb-2">紙商品券について知りたい方へ</h3>
+                <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                    紙製プレミアム商品券を希望される場合は、市報折込チラシまたは臼杵市公式ホームページをご確認ください。
+                </p>
+                <a href="https://www.city.usuki.oita.jp/article/2026041600021/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-amber-800 font-bold hover:underline">
+                    臼杵市公式案内ページを開く
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 px-4 border-t border-slate-800 mt-auto text-xs md:text-sm text-center">
+        <div class="max-w-md mx-auto space-y-6">
+            <div class="space-y-3">
+                <p class="font-bold text-white text-sm">🌐 関連リンク集（公式情報）</p>
+                
+                <div class="grid grid-cols-1 gap-2.5 text-left text-xs">
+                    <a href="https://www.city.usuki.oita.jp/article/2026041600021/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3.5 bg-slate-800 rounded-xl hover:bg-slate-700 transition-colors border border-slate-700">
+                        <div>
+                            <p class="font-bold text-white text-xs md:text-sm">臼杵市公式プレミアム商品券ページ</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5">制度の詳細、市公式アナウンスはこちら</p>
+                        </div>
+                        <svg class="w-4 h-4 text-sky-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    <a href="https://usuki-digital-2026.com/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3.5 bg-slate-800 rounded-xl hover:bg-slate-700 transition-colors border border-slate-700">
+                        <div>
+                            <p class="font-bold text-white text-xs md:text-sm">デジタル商品券 特設サイト</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5">最新の加盟店情報・使い方ガイド</p>
+                        </div>
+                        <svg class="w-4 h-4 text-sky-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    <a href="https://machidukuri-usuki.jp/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3.5 bg-slate-800 rounded-xl hover:bg-slate-700 transition-colors border border-slate-700">
+                        <div>
+                            <p class="font-bold text-white text-xs md:text-sm">株式会社まちづくり臼杵</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5">地域商品券の発行・事務局サイト</p>
+                        </div>
+                        <svg class="w-4 h-4 text-sky-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    <a href="https://x-id.me/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3.5 bg-slate-800 rounded-xl hover:bg-slate-700 transition-colors border border-slate-700">
+                        <div>
+                            <p class="font-bold text-white text-xs md:text-sm">xID（クロスアイディ）公式サイト</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5">アプリの使い方・マイナンバーカードによる本人確認の手順</p>
+                        </div>
+                        <svg class="w-4 h-4 text-sky-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 pt-4 text-slate-500 text-[10px] md:text-xs leading-relaxed space-y-1 text-center">
+                <p>※本ページは手続を擬似的に準備確認するための案内補助ツールであり、申込そのものを行うものではありません。</p>
+                <p>最新の正確な情報は、臼杵市公式ページ・特設サイトを必ずご確認ください。</p>
+                <p class="pt-2 text-[9px] text-slate-600">© 2026 臼杵市デジタル商品券 申込準備ナビ（案内補助ツール）</p>
+            </div>
+        </div>
+    </footer>
+
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-lg safe-bottom z-40">
+        <div class="max-w-md mx-auto grid grid-cols-4 text-center">
+            <button onclick="switchTab('home')" id="tab-home" class="py-2 flex flex-col items-center justify-center text-blue-600 font-bold transition-all">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                </svg>
+                <span class="text-[10px] mt-0.5">ホーム</span>
+            </button>
+            <button onclick="switchTab('diagnosis')" id="tab-diagnosis" class="py-2 flex flex-col items-center justify-center text-slate-500 hover:text-blue-600 font-medium transition-all">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="text-[10px] mt-0.5">準備判定</span>
+            </button>
+            <button onclick="switchTab('guide')" id="tab-guide" class="py-2 flex flex-col items-center justify-center text-slate-500 hover:text-blue-600 font-medium transition-all">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+                <span class="text-[10px] mt-0.5">手順ガイド</span>
+            </button>
+            <button onclick="switchTab('inquiry')" id="tab-inquiry" class="py-2 flex flex-col items-center justify-center text-slate-500 hover:text-blue-600 font-medium transition-all">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+                <span class="text-[10px] mt-0.5">相談窓口</span>
+            </button>
+        </div>
+    </nav>
+
+    <script>
+        // App State Variables
+        let currentQuestionIndex = 0;
+        let selectedAnswers = {}; // key: questionId, value: selectedOptionValue
+
+        // Questions Definition
+        const questions = [
+            {
+                id: 1,
+                text: "Q1. 申込する方は、臼杵市にお住まいですか？",
+                desc: "※デジタル商品券は臼杵市民限定の制度となります。",
+                options: [
+                    { value: "yes", text: "はい、住んでいます" },
+                    { value: "no", text: "いいえ、住んでいません" },
+                    { value: "unknown", text: "わからない" }
+                ]
+            },
+            {
+                id: 2,
+                text: "Q2. 申込する方は15歳以上ですか？",
+                desc: "※15歳未満の方は国の法律上、署名用電子証明書（暗証番号）が発行されないため、デジタル商品券の申込はできません。",
+                options: [
+                    { value: "yes", text: "15歳以上である" },
+                    { value: "no", text: "15歳未満である" },
+                    { value: "unknown", text: "わからない" }
+                ]
+            },
+            {
+                id: 3,
+                text: "Q3. スマートフォンを持っていますか？",
+                desc: "※本人確認、購入、および店頭でQRコードを読み取って決済を行うためにスマートフォンが必要になります。",
+                options: [
+                    { value: "yes", text: "自分のスマホを持っている" },
+                    { value: "no", text: "持っていない" },
+                    { value: "family", text: "家族のスマホで手続きしたい" },
+                    { value: "unknown", text: "わからない" }
+                ]
+            },
+            {
+                id: 4,
+                text: "Q4. マイナンバーカードを持っていますか？",
+                desc: "※xIDアプリでの本人確認（マイナンバーカードのICチップ読み取り）が必要です。",
+                options: [
+                    { value: "yes", text: "カードを持っている" },
+                    { value: "no", text: "持っていない" },
+                    { value: "applying", text: "現在, 申請中である" },
+                    { value: "lost", text: "紛失した・使えない" },
+                    { value: "unknown", text: "わからない" }
+                ]
+            },
+            {
+                id: 5,
+                text: "Q5. マイナンバーカードの署名用電子証明書暗証番号がわかりますか？",
+                desc: "※カード受取時に設定した「英大文字と数字」を組み合わせた6～16文字 of 暗証番号です。",
+                warning: "⚠️ ご注意：この画面には、暗証番号などの情報は絶対に入力しないでください。「入力欄」はありません。",
+                options: [
+                    { value: "yes", text: "わかる" },
+                    { value: "forgot", text: "忘れてしまった" },
+                    { value: "locked", text: "ロックされたかもしれない" },
+                    { value: "unknown", text: "何のことかわからない" }
+                ]
+            },
+            {
+                id: 6,
+                text: "Q6. 使えるメールアドレスはありますか？",
+                desc: "※xIDアプリ等の登録や確認手続きに必要になります。GmailやYahoo!メールなどのフリーメールを推奨します（docomo、au、SoftBankなどのキャリアメールは設定により確認メールが届かない場合があります）。",
+                options: [
+                    { value: "yes", text: "GmailやYahoo!メールなどがある" },
+                    { value: "carrier", text: "キャリアメールのみ（届かない場合があることを承知）" },
+                    { value: "no", text: "メールアドレスを持っていない" },
+                    { value: "unknown", text: "わからない" }
+                ]
+            },
+            {
+                id: 7,
+                text: "Q7. xIDアプリ（クロスアイディ）をスマートフォンに入れていますか？",
+                desc: "※デジタル商品券の申込を行うための必須アプリです。",
+                options: [
+                    { value: "yes", text: "すでにインストールしている" },
+                    { value: "no", text: "まだ入れていない" },
+                    { value: "howto", text: "登録方法がわからない" },
+                    { value: "unknown", text: "自分のスマホで使えるかわからない" }
+                ]
+            },
+            {
+                id: 8,
+                text: "Q8. アプリの登録や申込操作を自分でできそうですか？",
+                desc: "※xIDのマイナンバーカード読み取りなど、初期設定が一部必要となります。",
+                options: [
+                    { value: "yes", text: "自分でできそう" },
+                    { value: "family_support", text: "家族や知人に手伝ってもらえればできそう" },
+                    { value: "anxious", text: "できるか不安がある" },
+                    { value: "difficult", text: "自分だけでは難しそう" }
+                ]
+            }
+        ];
+
+        // TAB SWAP LOGIC
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.getElementById('screen-home').classList.add('hidden');
+            document.getElementById('screen-diagnosis').classList.add('hidden');
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-guide').classList.add('hidden');
+            document.getElementById('screen-inquiry').classList.add('hidden');
+
+            // Reset tab styles
+            const tabs = ['home', 'diagnosis', 'guide', 'inquiry'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                if (el) {
+                    el.classList.remove('text-blue-600', 'font-bold');
+                    el.classList.add('text-slate-500', 'font-medium');
+                }
+            });
+
+            // Show active tab
+            if (tabId === 'result') {
+                document.getElementById('screen-result').classList.remove('hidden');
+                const diagTab = document.getElementById('tab-diagnosis');
+                if (diagTab) {
+                    diagTab.classList.add('text-blue-600', 'font-bold');
+                    diagTab.classList.remove('text-slate-500', 'font-medium');
+                }
+            } else {
+                document.getElementById(`screen-${tabId}`).classList.remove('hidden');
+                const activeTabEl = document.getElementById(`tab-${tabId}`);
+                if (activeTabEl) {
+                    activeTabEl.classList.add('text-blue-600', 'font-bold');
+                    activeTabEl.classList.remove('text-slate-500', 'font-medium');
+                }
+            }
+
+            // Ensure rendering of questions when jumping to diagnosis directly
+            if (tabId === 'diagnosis') {
+                renderQuestion();
+            }
+
+            // Scroll to Top on screen transition
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ACCORDION LOGIC
+        function toggleAccordion(id) {
+            const accordion = document.getElementById(id);
+            const icon = document.getElementById(`${id}-icon`);
+            if (accordion && icon) {
+                accordion.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            }
+        }
+
+        // AUTOMATIC DATE LOGIC (2026 Timeline Status Processor)
+        function updateStatusCard(dateObj) {
+            const card = document.getElementById('status-card');
+            const icon = document.getElementById('status-icon');
+            const badge = document.getElementById('status-badge');
+            const title = document.getElementById('status-title');
+            const desc = document.getElementById('status-desc');
+
+            const yyyymmdd = dateObj.getFullYear() + '/' + 
+                             String(dateObj.getMonth() + 1).padStart(2, '0') + '/' + 
+                             String(dateObj.getDate()).padStart(2, '0');
+
+            // Phase definitions
+            let phaseColor = "";
+            let phaseBadge = "";
+            let phaseTitle = "";
+            let phaseDesc = "";
+            let iconSvg = "";
+
+            const p1Limit = new Date('2026-05-25T23:59:59');
+            const p2Limit = new Date('2026-05-31T23:59:59');
+            const p3Limit = new Date('2026-06-12T23:59:59');
+            const p4Limit = new Date('2026-06-30T23:59:59');
+            const p5Limit = new Date('2026-07-12T23:59:59');
+            const p6Limit = new Date('2026-09-30T23:59:59');
+
+            if (dateObj <= p1Limit) {
+                phaseColor = "bg-sky-50 text-sky-900 border border-sky-200";
+                phaseBadge = "bg-sky-500 text-white";
+                phaseTitle = "準備・公式案内期間";
+                phaseDesc = "現在、詳細な申込方法の公開や市報・チラシによるご案内の準備期間です。デジタル商品券の申込に必要なスマートフォンやマイナンバーカードなどを今のうちにご確認ください。";
+                iconSvg = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+            } else if (dateObj <= p2Limit) {
+                phaseColor = "bg-indigo-50 text-indigo-900 border border-indigo-200";
+                phaseBadge = "bg-indigo-600 text-white";
+                phaseTitle = "事前準備・サポート開始期間";
+                phaseDesc = "市役所特設サポートデスクが開設されました。xIDアプリのセットアップを行い、いつでも申込めるように準備を行いましょう。";
+                iconSvg = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`;
+            } else if (dateObj <= p3Limit) {
+                phaseColor = "bg-rose-50 text-rose-900 border border-rose-200";
+                phaseBadge = "bg-rose-600 text-white";
+                phaseTitle = "⚠️ 購入申込の受付期間中！";
+                phaseDesc = "【最重要！】ただいま公式申込期間です（6/12まで）。設定済みのxIDアプリから購入申込手続きを行ってください。※xIDの初期設定に必要な「署名用電子証明書」は、新規発行の場合は有効化まで24時間必要なので最終日はご注意ください。また、商品券購入手続きは先着順ではなく、申込多数時は抽選となります。";
+                iconSvg = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>`;
+            } else if (dateObj <= p4Limit) {
+                phaseColor = "bg-amber-50 text-amber-900 border border-amber-200";
+                phaseBadge = "bg-amber-600 text-white";
+                phaseTitle = "抽選結果の確認待ち";
+                phaseDesc = "申込期間は終了しました。現在、抽選処理が行われています。6月末ごろにxIDアプリ等で通知を順次ご確認いただけます。";
+                iconSvg = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+            } else if (dateObj <= p5Limit) {
+                phaseColor = "bg-emerald-50 text-emerald-900 border border-emerald-200";
+                phaseBadge = "bg-emerald-600 text-white";
+                phaseTitle = "⚡ 当選者購入・チャージ期間";
+                phaseDesc = "当選された方の購入手続き（チャージ決済）期限は7月12日(日)までです。「コンビニ払い」は購入・チャージ用の支払方法の1つです。※店頭での決済利用条件は、店舗が加盟店かによります。";
+                iconSvg = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>`;
+            } else if (dateObj <= p6Limit) {
+                phaseColor = "bg-blue-50 text-blue-900 border border-blue-200";
+                phaseBadge = "bg-blue-600 text-white";
+                phaseTitle = "🛍️ デジタル商品券の利用期間";
+                phaseDesc = "デジタル商品券の利用期間は9月30日(水)までです。臼杵市内の加盟店でQRコードを読み取って決済してください。期限超過後の残高はすべて失効します。";
+                iconSvg = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>`;
+            } else {
+                phaseColor = "bg-slate-100 text-slate-700 border border-slate-300";
+                phaseBadge = "bg-slate-600 text-white";
+                phaseTitle = "第9弾デジタル商品券 利用期間終了";
+                phaseDesc = "2026年9月30日をもって商品券の利用期間は終了しました。未使用残高はすべて無効となっています。";
+                iconSvg = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`;
+            }
+
+            // Apply to Elements
+            card.className = `${phaseColor} rounded-xl p-4 transition-all duration-300`;
+            icon.className = `p-2 rounded-lg ${phaseBadge} text-white shrink-0`;
+            icon.innerHTML = iconSvg;
+            badge.className = `text-xs font-bold px-2.5 py-1 rounded-full inline-block mb-1.5 ${phaseBadge}`;
+            badge.textContent = `判定日: ${yyyymmdd}`;
+            title.textContent = phaseTitle;
+            desc.textContent = phaseDesc;
+        }
+
+        // START THE FLOW
+        function startDiagnosis() {
+            currentQuestionIndex = 0;
+            selectedAnswers = {};
+            switchTab('diagnosis');
+        }
+
+        // RESET FLOW
+        function resetDiagnosis() {
+            currentQuestionIndex = 0;
+            selectedAnswers = {};
+            switchTab('diagnosis');
+        }
+
+        // RENDER CURRENT QUESTION CARD
+        function renderQuestion() {
+            const container = document.getElementById('question-container');
+            const question = questions[currentQuestionIndex];
+
+            // Progress Update
+            const totalQuestions = questions.length;
+            const progressPercent = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+            document.getElementById('progress-text').textContent = `質問 ${currentQuestionIndex + 1}/${totalQuestions}`;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+            // Back button control
+            const btnBack = document.getElementById('btn-diag-back');
+            if (currentQuestionIndex === 0) {
+                btnBack.setAttribute('disabled', 'true');
+                btnBack.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                btnBack.removeAttribute('disabled');
+                btnBack.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            // Building Choices UI
+            let optionsHtml = '';
+            question.options.forEach(opt => {
+                const isSelected = selectedAnswers[question.id] === opt.value;
+                const activeClasses = isSelected 
+                    ? 'border-blue-600 bg-blue-50 text-blue-900 ring-2 ring-blue-500' 
+                    : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-300';
+
+                optionsHtml += `
+                    <button onclick="selectOption(${question.id}, '${opt.value}')" class="w-full text-left p-4 rounded-xl border-2 font-bold ${activeClasses} transition-all flex justify-between items-center text-sm md:text-base">
+                        <span>${opt.text}</span>
+                        <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center ${isSelected ? 'border-blue-600 bg-blue-600' : 'border-slate-300'} shrink-0">
+                            ${isSelected ? '<div class="w-2.5 h-2.5 bg-white rounded-full"></div>' : ''}
+                        </div>
+                    </button>
+                `;
+            });
+
+            // Specific warning box for Question 5 (Pin code protection)
+            let warningBoxHtml = '';
+            if (question.warning) {
+                warningBoxHtml = `
+                    <div class="bg-red-50 text-red-900 text-xs font-semibold p-3.5 rounded-xl border border-red-200 leading-relaxed mb-4">
+                        ${question.warning}
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 transition-all duration-300">
+                    <h3 class="font-bold text-slate-800 text-base md:text-lg mb-1 leading-snug">${question.text}</h3>
+                    <p class="text-xs md:text-sm text-slate-500 mb-5">${question.desc}</p>
+                    
+                    ${warningBoxHtml}
+
+                    <div class="space-y-3">
+                        ${optionsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        // CHOOSE OPTION & ADVANCE
+        function selectOption(qId, val) {
+            selectedAnswers[qId] = val;
+            renderQuestion(); // Re-render to show visual active selected button
+
+            // Auto-advance after a small responsive delay for feel
+            setTimeout(() => {
+                if (currentQuestionIndex < questions.length - 1) {
+                    currentQuestionIndex++;
+                    renderQuestion();
+                } else {
+                    processResults();
+                }
+            }, 300);
+        }
+
+        // NAVIGATE BACK
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        // PROCESS RESULTS BASED ON EXACT LOGICAL REQUIREMENTS
+        function processResults() {
+            const q1 = selectedAnswers[1]; // Resides in Usuki
+            const q2 = selectedAnswers[2]; // 15 years old or more
+            const q3 = selectedAnswers[3]; // Smartphone
+            const q4 = selectedAnswers[4]; // My Number Card
+            const q5 = selectedAnswers[5]; // Password Status
+            const q6 = selectedAnswers[6]; // Email Address
+            const q7 = selectedAnswers[7]; // xID app installation
+            const q8 = selectedAnswers[8]; // Confidence/Support Required
+
+            let resultTitle = "";
+            let resultBoxContent = "";
+            let iconSvg = "";
+            let checkListItems = [];
+
+            // 1. PAPER OPTION RECOMMENDED (Roadblocks to digital app usage)
+            if (q1 === 'no' || q1 === 'unknown' || q2 === 'no' || q3 === 'no' || q4 === 'no' || q4 === 'lost') {
+                resultTitle = "紙商品券のご検討をおすすめします";
+                iconSvg = `<svg class="w-16 h-16 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>`;
+                
+                resultBoxContent = `
+                    <div class="bg-amber-50 text-amber-900 p-4 rounded-xl border border-amber-200">
+                        <p class="font-bold mb-1">デジタル商品券の申込条件を満たすことが難しい可能性があります</p>
+                        <p class="text-xs leading-relaxed">臼杵市に住民登録のない方、15歳未満の方、スマートフォンやマイナンバーカードのご用意が難しい場合は、デジタル商品券の申込ができません。紙商品券の申込をご検討ください。詳細は市報折込チラシまたは公式ホームページをご確認ください。</p>
+                    </div>
+                `;
+
+                if (q1 === 'no' || q1 === 'unknown') checkListItems.push("デジタル商品券の申込対象者は「臼杵市に住民登録がある方」に限られます。住民登録がない（または不明な）場合はお申し込みいただけませんのでご注意ください。");
+                if (q2 === 'no') checkListItems.push("15歳未満の方は、署名用電子証明書（暗証番号）が発行されないため、デジタル商品券をお申し込みいただくことができません。");
+                if (q3 === 'no') checkListItems.push("デジタル決済にはスマートフォンが必要です。ご用意が難しい場合は紙商品券をお申し込みください。");
+                if (q4 === 'no' || q4 === 'lost') checkListItems.push("マイナンバーカードがない場合、本人確認アプリ「xID」のご利用ができないため、デジタル商品券は申込不可となります。");
+
+            // 2. SUPPORT & DESK RECOMMENDED (Critical credential or security issues, high risk of blockage)
+            } else if (q5 === 'forgot' || q5 === 'locked' || q5 === 'unknown' || q7 === 'howto' || q8 === 'difficult') {
+                resultTitle = "サポートデスクへのご相談がおすすめ";
+                iconSvg = `<svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>`;
+                
+                resultBoxContent = `
+                    <div class="bg-blue-50 text-blue-900 p-4 rounded-xl border border-blue-200">
+                        <p class="font-bold mb-1">無理に進めず、対面相談サポートをご利用ください</p>
+                        <p class="text-xs leading-relaxed">暗証番号を忘れてしまった場合や登録手順に不安がある場合は、市役所に開設される「サポートデスク」でスタッフによる直接のご案内が受けられます。<strong>なお、個人情報や暗証番号をこの判定画面や非公式のページ等に入力する必要はありません。</strong></p>
+                    </div>
+                `;
+
+                if (q5 === 'forgot' || q5 === 'locked') {
+                    checkListItems.push("<strong>暗証番号の再設定:</strong> 暗証番号の初期化・再設定が必要です。市役所市民課または野津庁舎にてお手続きを行ってください（マイナンバーカードが必要です）。");
+                }
+                if (q7 === 'howto' || q8 === 'difficult') {
+                    checkListItems.push("<strong>サポートデスクで直接相談:</strong> 特設サポートデスク開設期間（5/26〜6/5）に、ご自身のスマートフォン、マイナンバーカードをお持ちの上ご相談にお越しください。※暗証番号は他人に見せたり伝えないようにご注意ください。");
+                }
+
+            // 3. MORE PREP NEEDED (Almost ready, requires quick self-service actions)
+            } else if (q4 === 'applying' || q6 === 'no' || q7 === 'no' || q3 === 'family' || q2 === 'unknown' || q3 === 'unknown' || q4 === 'unknown' || q6 === 'unknown') {
+                resultTitle = "もう少しで申込準備が完了します！";
+                iconSvg = `<svg class="w-16 h-16 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`;
+                
+                resultBoxContent = `
+                    <div class="bg-yellow-50 text-yellow-900 p-4 rounded-xl border border-yellow-200">
+                        <p class="font-bold mb-1">申込前に、あらかじめ以下の準備をお願いします</p>
+                        <p class="text-xs leading-relaxed">申込期間に入る前に、以下の未完了となっている項目をご準備いただくことでスムーズに申し込みが可能となります。不安がある点については、サポート窓口やコールセンターでお問い合わせいただけます。</p>
+                    </div>
+                `;
+
+                if (q4 === 'applying') {
+                    checkListItems.push("<strong>マイナンバーカードの受取と電子証明書の有効化:</strong> 交付通知書（ハガキ）が届いている場合は、事前に市役所等の窓口にてカードを受け取ってください。<br><span class=\"text-red-600 font-bold mt-1 inline-block\">※【重要】署名用電子証明書は有効化に24時間必要です。申込最終日に駆け込みで取得（電子証明書もその日に生成）しても間に合いませんので、その場合は紙の商品券をご検討ください。</span>");
+                }
+                if (q6 === 'no') {
+                    checkListItems.push("<strong>フリーメールの準備:</strong> 連絡確認などの手続きのため、GmailやYahoo!メールなどのフリーメールをご用意いただくことを推奨します。※キャリアメールは受信エラーが発生する場合があります。");
+                }
+                if (q7 === 'no') {
+                    checkListItems.push("<strong>xIDアプリの準備:</strong> Appストア等の公式ストアから、事前にxIDアプリのダウンロードと基本セットアップを完了させておいてください。");
+                }
+                if (q3 === 'family') {
+                    checkListItems.push("<strong>スマートフォン端末数のルール確認:</strong> スマートフォン1端末につき、申込できるのは1人分です。複数人分を同じ端末で申し込むことはできません。貸し借り等の前に必ずサポート窓口に事前確認をしてください。");
+                }
+
+            // 4. PREP ALL OK (Ready to roll immediately!)
+            } else {
+                resultTitle = "申込の準備状況は良好です！";
+                iconSvg = `<svg class="w-16 h-16 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+
+                resultBoxContent = `
+                    <div class="bg-emerald-50 text-emerald-900 p-4 rounded-xl border border-emerald-200">
+                        <p class="font-bold mb-1">デジタル商品券の申込準備がほぼ整っています！</p>
+                        <p class="text-xs leading-relaxed">公式申込期間 <strong>2026年6月1日(月) 〜 6月12日(金)</strong> の間に、ご自身で準備したxIDアプリを起動して購入申込を行ってください。先着順ではなく抽選ですので、期間内に慌てずお手続きを進めてください。</p>
+                    </div>
+                `;
+
+                checkListItems.push("<strong>申込期間内にxIDアプリから申込:</strong> 6/1から6/12までの間に手続きを忘れないようご注意ください。");
+                checkListItems.push("<strong>暗証番号ロックに注意:</strong> 本番の申込手続き中に入力ミスを繰り返すとロックされます。必ずご自身の暗証番号をご確認のうえ、丁寧に入力してください。");
+                checkListItems.push("<strong>複数申込の制限:</strong> スマートフォン1端末につき、申込できるのは1人分です。複数人分を同じ端末で申し込むことはできません。");
+                checkListItems.push("<strong>当選後のチャージ口数の制限:</strong> 当選した口数を変更して購入することはできません。例えば3口当選した場合、2口だけ購入することはできず、当選した口数をまとめて購入する必要があります。");
+            }
+
+            // Populate UI Elements with structured content
+            document.getElementById('result-icon-container').innerHTML = iconSvg;
+            document.getElementById('result-title').textContent = resultTitle;
+            document.getElementById('result-box').innerHTML = resultBoxContent;
+
+            // List compilation
+            const listContainer = document.getElementById('result-checklist');
+            listContainer.innerHTML = '';
+            
+            // Standard general check items always added to results to satisfy feedback points
+            checkListItems.push("<strong>利用場所の注意:</strong> デジタル商品券が利用できるのは「臼杵市内の取扱加盟店」です。市外店舗や加盟店でない店舗では利用できません。");
+            checkListItems.push("<strong>当選後のチャージ口数の注意:</strong> 当選した口数を変更して購入することはできません。例えば3口当選した場合、2口だけ購入することはできず、当選した口数をまとめて購入する必要があります。");
+            checkListItems.push("<strong>注意事項の確認:</strong> 換金性の高い商品・たばこ・税金等の支払いなど、一部商品券が利用できない対象外品目があります。");
+            checkListItems.push("<strong>利用時の留意点:</strong> 実際の店頭利用時はインターネットに接続できる環境が必要です。残高不足時は、不足分を現金等で支払う必要があります（店舗に要確認）。");
+
+            checkListItems.forEach(item => {
+                const li = document.createElement('li');
+                li.className = "flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100";
+                li.innerHTML = `
+                    <svg class="w-4 h-4 text-blue-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
+                    </svg>
+                    <div class="text-xs md:text-sm text-slate-700">${item}</div>
+                `;
+                listContainer.appendChild(li);
+            });
+
+            switchTab('result');
+        }
+
+        // INITIAL LOAD INITIALIZATION
+        window.onload = function() {
+            // Run automatic date check on start (Real-world Clock default)
+            updateStatusCard(new Date());
+
+            // Register PWA Service Worker gracefully
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js')
+                .then(function(reg) {
+                    console.log('ServiceWorker registered successfully with scope: ', reg.scope);
+                }).catch(function(err) {
+                    console.warn('ServiceWorker registration failed: ', err);
+                });
+            }
+        };
+    </script>
+</body>
+</html>
